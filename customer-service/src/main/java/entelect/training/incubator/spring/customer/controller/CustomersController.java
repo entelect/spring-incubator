@@ -1,7 +1,8 @@
 package entelect.training.incubator.spring.customer.controller;
 
 import entelect.training.incubator.spring.customer.model.Customer;
-import entelect.training.incubator.spring.customer.repository.CustomerRepository;
+import entelect.training.incubator.spring.customer.model.CustomerSearchRequest;
+import entelect.training.incubator.spring.customer.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,94 +12,71 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("customers")
 public class CustomersController {
-    
+
     private final Logger logger = LoggerFactory.getLogger(CustomersController.class);
-    
-    private final CustomerRepository customerRepository;
-    
-    public CustomersController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+
+    private final CustomerService customerService;
+
+    public CustomersController(CustomerService customerService) {
+        this.customerService = customerService;
     }
-    
+
     @PostMapping
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         logger.info("Processing customer creation request for customer={}", customer);
-        
-        final Customer savedCustomer =  this.customerRepository.save(customer);
-        
+
+        final Customer savedCustomer = customerService.createCustomer(customer);
+
         logger.trace("Customer created");
-        return new ResponseEntity<>(savedCustomer, HttpStatus.OK);
+        return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
-    
+
+    @GetMapping
+    public ResponseEntity<?> getCustomers() {
+        logger.info("Fetching all customers");
+        List<Customer> customers = customerService.getCustomers();
+
+        if (!customers.isEmpty()) {
+            logger.trace("Found customers");
+            return new ResponseEntity<>(customers, HttpStatus.OK);
+        }
+
+        logger.info("No customers could be found");
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<?> getCustomerById(@PathVariable Integer id) {
         logger.info("Processing customer search request for customer id={}", id);
-        Optional<Customer> customerOptional =  this.customerRepository.findById(id);
-        
-        if (customerOptional.isPresent()) {
-            logger.trace("Found customer: {}", customerOptional.get());
-            return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
+        Customer customer = this.customerService.getCustomer(id);
+
+        if (customer != null) {
+            logger.trace("Found customer");
+            return new ResponseEntity<>(customer, HttpStatus.OK);
         }
-    
+
         logger.trace("Customer not found");
         return ResponseEntity.notFound().build();
     }
-    
-    @GetMapping("/search/findByFirstNameAndLastName")
-    public ResponseEntity<?> getCustomerByFirstNameAndLastName(
-        @RequestParam(value = "firstname") String firstName,
-        @RequestParam(value = "lastname") String lastName) {
-        logger.info("Processing customer search request for firstname={}, lastname={}", firstName, lastName);
-    
-        Optional<Customer> customerOptional =  this.customerRepository.findByFirstNameAndLastName(firstName, lastName);
-        
-        if (customerOptional.isPresent()) {
-            logger.trace("Found customer: {}", customerOptional.get());
-            return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
+
+    @PostMapping("/search")
+    public ResponseEntity<?> searchCustomers(@RequestBody CustomerSearchRequest searchRequest) {
+        logger.info("Processing customer search request for request {}", searchRequest);
+
+        Customer customer = customerService.searchCustomers(searchRequest);
+
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
         }
-    
+
         logger.trace("Customer not found");
         return ResponseEntity.notFound().build();
     }
-    
-    @GetMapping("/search/findByPassportNumber")
-    public ResponseEntity<?> getCustomerByPassportNumber(
-        @RequestParam(value = "passport") String passportNumber) {
-        logger.info("Processing customer search request for passport={}", passportNumber);
-    
-        Optional<Customer> customerOptional =  this.customerRepository.findByPassportNumber(passportNumber);
-        
-        if (customerOptional.isPresent()) {
-            logger.trace("Found customer: {}", customerOptional.get());
-            return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
-        }
-    
-        logger.trace("Customer not found");
-        return ResponseEntity.notFound().build();
-    }
-    
-    @GetMapping("/search/findByUsername")
-    public ResponseEntity<?> getCustomerByUsername(
-        @RequestParam(value = "username") String username) {
-        logger.info("Processing customer search request for username={}", username);
-    
-        Optional<Customer> customerOptional =  this.customerRepository.findByUsername(username);
-        
-        if (customerOptional.isPresent()) {
-            logger.trace("Found customer: {}", customerOptional.get());
-            return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
-        }
-    
-        logger.trace("Customer not found");
-        return ResponseEntity.notFound().build();
-    }
-    
 }
