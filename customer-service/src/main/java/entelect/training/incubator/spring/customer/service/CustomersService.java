@@ -14,11 +14,11 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @Service
-public class CustomerService {
+public class CustomersService {
 
     private final CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomersService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 

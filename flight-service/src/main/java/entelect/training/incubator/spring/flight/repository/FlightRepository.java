@@ -18,6 +18,6 @@ public interface FlightRepository extends CrudRepository<Flight, Integer> {
     
     List<Flight> findByOriginAndDestination(@Param("origin") String origin, @Param("destination") String destination);
     
-    @Query(value = "select * from flight f where f.departure_time between NOW() and DATE_ADD(NOW(), INTERVAL :days DAY)", nativeQuery = true)
-    List<Flight> findByDepartureTimeWithinDays(@Param("days") Integer days);
+    @Query(value = "select f from Flight f where f.departureTime > :departureFrom and f.departureTime <= :departureTo")
+    List<Flight> findByDepartureTimeBetweenDates(@Param("departureFrom") LocalDateTime departureFrom, LocalDateTime departureTo);
 }
