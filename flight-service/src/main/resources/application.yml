@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: flight-service
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8202
+
+loyalty:
+  discount:
+      flights:
+        selection:
+          futureDays: 365
+        limit: 5
+      fares:
+        rate: 0.8
