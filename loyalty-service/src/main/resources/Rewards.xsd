@@ -1,0 +1,36 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://entelect.training/incubator/spring-loyalty-service" elementFormDefault="qualified">
+
+    <xs:element name="captureRewardsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="passportNumber" type="xs:string"/>
+                <xs:element name="amount" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="captureRewardsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="balance" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rewardsBalanceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="passportNumber" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rewardsBalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="balance" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

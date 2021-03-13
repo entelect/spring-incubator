@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: loyalty-service
+
+server:
+  port: 8208
