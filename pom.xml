@@ -32,7 +32,7 @@
 
         <!-- External lib versions -->
         <springframework.version>5.3.3</springframework.version>
-        <springsecurity.version>5.0.0.RELEASE</springsecurity.version>
+        <springsecurity.version>5.2.10.RELEASE</springsecurity.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-boot-starter-test.version>2.4.0</spring-boot-starter-test.version>
         <jaxb.version>2.2.11</jaxb.version>
