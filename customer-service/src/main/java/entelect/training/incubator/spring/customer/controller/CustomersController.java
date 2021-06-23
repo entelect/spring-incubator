@@ -2,17 +2,13 @@ package entelect.training.incubator.spring.customer.controller;
 
 import entelect.training.incubator.spring.customer.model.Customer;
 import entelect.training.incubator.spring.customer.model.CustomerSearchRequest;
+import entelect.training.incubator.spring.customer.model.SearchType;
 import entelect.training.incubator.spring.customer.service.CustomersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,10 +62,24 @@ public class CustomersController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/search")
-    public ResponseEntity<?> searchCustomers(@RequestBody CustomerSearchRequest searchRequest) {
-        LOGGER.info("Processing customer search request for request {}", searchRequest);
+    @PostMapping(path = "search/{searchType}")
+    public ResponseEntity<?> searchCustomers(@PathVariable("searchType") String searchTypeString,
+                                             @RequestParam(required = false) String username,
+                                             @RequestParam(required = false) String firstName,
+                                             @RequestParam(required = false) String lastName,
+                                             @RequestParam(required = false) String passportNumber) {
 
+        CustomerSearchRequest searchRequest = new CustomerSearchRequest();
+        SearchType searchType = SearchType.fromString(searchTypeString);
+        searchRequest.setSearchType(searchType);
+
+        if (username != null) searchRequest.setUsername(username);
+        if (firstName != null) searchRequest.setFirstName(firstName);
+        if (lastName != null) searchRequest.setLastName(lastName);
+        if (passportNumber != null) searchRequest.setPassport(passportNumber);
+
+        LOGGER.info("Processing customer search request type {} for request {}", searchType, searchRequest);
+        searchRequest.setSearchType(searchType);
         Customer customer = customersService.searchCustomers(searchRequest);
 
         if (customer != null) {

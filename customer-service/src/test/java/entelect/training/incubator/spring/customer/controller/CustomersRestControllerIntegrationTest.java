@@ -79,7 +79,7 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(get("/customers/search/findByUsername").contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(post("/customers/search/findByUsername").contentType(MediaType.APPLICATION_JSON)
                 .queryParam("username", TEST_CUSTOMER_USERNAME))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -90,8 +90,8 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(get("/customers/search/findByPassportNumber").contentType(MediaType.APPLICATION_JSON)
-                .queryParam("passport", TEST_CUSTOMER_PASSPORT_NUMBER))
+        mvc.perform(post("/customers/search/findByPassportNumber").contentType(MediaType.APPLICATION_JSON)
+                .queryParam("passportNumber", TEST_CUSTOMER_PASSPORT_NUMBER))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.passportNumber", is(TEST_CUSTOMER_PASSPORT_NUMBER)));
@@ -101,9 +101,9 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(get("/customers/search/findByFirstNameAndLastName").contentType(MediaType.APPLICATION_JSON)
-                .queryParam("firstname", TEST_CUSTOMER_FIRST_NAME)
-                .queryParam("lastname", TEST_CUSTOMER_LAST_NAME))
+        mvc.perform(post("/customers/search/findByFirstNameAndLastName").contentType(MediaType.APPLICATION_JSON)
+                .queryParam("firstName", TEST_CUSTOMER_FIRST_NAME)
+                .queryParam("lastName", TEST_CUSTOMER_LAST_NAME))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", is(TEST_CUSTOMER_FIRST_NAME)))
