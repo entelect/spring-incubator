@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entelect.training.incubator.spring.customer.CustomerServiceApplication;
 import entelect.training.incubator.spring.customer.model.Customer;
+import entelect.training.incubator.spring.customer.model.CustomerSearchRequest;
+import entelect.training.incubator.spring.customer.model.SearchType;
 import entelect.training.incubator.spring.customer.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -79,8 +81,12 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(post("/customers/search/findByUsername").contentType(MediaType.APPLICATION_JSON)
-                .queryParam("username", TEST_CUSTOMER_USERNAME))
+        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+        customerSearchRequest.setSearchType(SearchType.USER_SEARCH);
+        customerSearchRequest.setUsername(TEST_CUSTOMER_USERNAME);
+
+        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(customerSearchRequest)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is(TEST_CUSTOMER_USERNAME)));
@@ -90,8 +96,12 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(post("/customers/search/findByPassportNumber").contentType(MediaType.APPLICATION_JSON)
-                .queryParam("passportNumber", TEST_CUSTOMER_PASSPORT_NUMBER))
+        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+        customerSearchRequest.setSearchType(SearchType.PASSPORT_SEARCH);
+        customerSearchRequest.setPassport(TEST_CUSTOMER_PASSPORT_NUMBER);
+
+        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(customerSearchRequest)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.passportNumber", is(TEST_CUSTOMER_PASSPORT_NUMBER)));
@@ -101,9 +111,13 @@ public class CustomersRestControllerIntegrationTest {
     public void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
-        mvc.perform(post("/customers/search/findByFirstNameAndLastName").contentType(MediaType.APPLICATION_JSON)
-                .queryParam("firstName", TEST_CUSTOMER_FIRST_NAME)
-                .queryParam("lastName", TEST_CUSTOMER_LAST_NAME))
+        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+        customerSearchRequest.setSearchType(SearchType.NAME_SEARCH);
+        customerSearchRequest.setFirstName(TEST_CUSTOMER_FIRST_NAME);
+        customerSearchRequest.setLastName(TEST_CUSTOMER_LAST_NAME);
+
+        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(customerSearchRequest)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", is(TEST_CUSTOMER_FIRST_NAME)))

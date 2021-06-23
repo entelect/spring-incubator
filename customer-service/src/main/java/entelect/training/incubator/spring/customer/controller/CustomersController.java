@@ -62,24 +62,10 @@ public class CustomersController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping(path = "search/{searchType}")
-    public ResponseEntity<?> searchCustomers(@PathVariable("searchType") String searchTypeString,
-                                             @RequestParam(required = false) String username,
-                                             @RequestParam(required = false) String firstName,
-                                             @RequestParam(required = false) String lastName,
-                                             @RequestParam(required = false) String passportNumber) {
+    @PostMapping("/search")
+    public ResponseEntity<?> searchCustomers(@RequestBody CustomerSearchRequest searchRequest) {
+        LOGGER.info("Processing customer search request for request {}", searchRequest);
 
-        CustomerSearchRequest searchRequest = new CustomerSearchRequest();
-        SearchType searchType = SearchType.fromString(searchTypeString);
-        searchRequest.setSearchType(searchType);
-
-        if (username != null) searchRequest.setUsername(username);
-        if (firstName != null) searchRequest.setFirstName(firstName);
-        if (lastName != null) searchRequest.setLastName(lastName);
-        if (passportNumber != null) searchRequest.setPassport(passportNumber);
-
-        LOGGER.info("Processing customer search request type {} for request {}", searchType, searchRequest);
-        searchRequest.setSearchType(searchType);
         Customer customer = customersService.searchCustomers(searchRequest);
 
         if (customer != null) {
