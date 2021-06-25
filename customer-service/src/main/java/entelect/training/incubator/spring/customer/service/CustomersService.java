@@ -6,11 +6,7 @@ import entelect.training.incubator.spring.customer.model.SearchType;
 import entelect.training.incubator.spring.customer.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 
 @Service
@@ -45,7 +41,7 @@ public class CustomersService {
 
         searchStrategies.put(SearchType.NAME_SEARCH, () -> customerRepository.findByFirstNameAndLastName(searchRequest.getFirstName(), searchRequest.getLastName()));
         searchStrategies.put(SearchType.PASSPORT_SEARCH, () -> customerRepository.findByPassportNumber(searchRequest.getPassport()));
-        searchStrategies.put(SearchType.USER_SEARCH, () -> customerRepository.findByUsername(searchRequest.getPassport()));
+        searchStrategies.put(SearchType.USER_SEARCH, () -> customerRepository.findByUsername(searchRequest.getUsername()));
 
         Optional<Customer> customerOptional = searchStrategies.get(searchRequest.getSearchType()).get();
 
