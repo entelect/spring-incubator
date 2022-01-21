@@ -38,7 +38,7 @@
         <jaxb.version>2.2.11</jaxb.version>
         <activation.version>1.1.1</activation.version>
         <hsqldb.version>2.4.0</hsqldb.version>
-        <h2.version>1.4.200</h2.version>
+        <h2.version>2.1.210</h2.version>
     </properties>
 
     <dependencyManagement>
