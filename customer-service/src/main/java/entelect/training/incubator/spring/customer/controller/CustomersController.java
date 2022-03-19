@@ -2,6 +2,7 @@ package entelect.training.incubator.spring.customer.controller;
 
 import entelect.training.incubator.spring.customer.model.Customer;
 import entelect.training.incubator.spring.customer.model.CustomerSearchRequest;
+import entelect.training.incubator.spring.customer.model.SearchType;
 import entelect.training.incubator.spring.customer.service.CustomersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
