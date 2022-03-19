@@ -14,4 +14,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     Optional<Customer> findByPassportNumber(String passportNumber);
     
     Optional<Customer> findByUsername(String username);
+    
 }
