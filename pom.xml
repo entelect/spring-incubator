@@ -21,8 +21,6 @@
     <modules>
         <module>flight-service</module>
         <module>customer-service</module>
-        <module>notification-service</module>
-        <module>loyalty-service</module>
     </modules>
 
     <properties>
@@ -32,7 +30,6 @@
 
         <!-- External lib versions -->
         <springframework.version>5.3.3</springframework.version>
-        <springsecurity.version>5.2.10.RELEASE</springsecurity.version>
         <lombok.version>1.18.20</lombok.version>
         <spring-boot-starter-test.version>2.4.0</spring-boot-starter-test.version>
         <jaxb.version>2.2.11</jaxb.version>
@@ -50,17 +47,6 @@
                 <version>${springframework.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${springsecurity.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${springsecurity.version}</version>
             </dependency>
 
             <!-- Lombok -->
