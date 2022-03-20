@@ -66,7 +66,7 @@ public class CustomersController {
     public ResponseEntity<?> searchCustomers(@RequestBody CustomerSearchRequest searchRequest) {
         LOGGER.info("Processing customer search request for request {}", searchRequest);
 
-        Customer customer = customersService.searchCustomers(searchRequest);
+        Iterable<Customer> customer = customersService.searchCustomers(searchRequest);
 
         if (customer != null) {
             return ResponseEntity.ok(customer);

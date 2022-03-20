@@ -36,14 +36,14 @@ public class CustomersService {
         return customerOptional.orElse(null);
     }
 
-    public Customer searchCustomers(CustomerSearchRequest searchRequest) {
-        Map<SearchType, Supplier<Optional<Customer>>> searchStrategies = new HashMap<>();
+    public Iterable<Customer> searchCustomers(CustomerSearchRequest searchRequest) {
+        Map<SearchType, Supplier<Optional<List<Customer>>>> searchStrategies = new HashMap<>();
 
         searchStrategies.put(SearchType.NAME_SEARCH, () -> customerRepository.findByFirstNameAndLastName(searchRequest.getFirstName(), searchRequest.getLastName()));
         searchStrategies.put(SearchType.PASSPORT_SEARCH, () -> customerRepository.findByPassportNumber(searchRequest.getPassport()));
         searchStrategies.put(SearchType.USER_SEARCH, () -> customerRepository.findByUsername(searchRequest.getUsername()));
 
-        Optional<Customer> customerOptional = searchStrategies.get(searchRequest.getSearchType()).get();
+        Optional<List<Customer>> customerOptional = searchStrategies.get(searchRequest.getSearchType()).get();
 
         return customerOptional.orElse(null);
     }

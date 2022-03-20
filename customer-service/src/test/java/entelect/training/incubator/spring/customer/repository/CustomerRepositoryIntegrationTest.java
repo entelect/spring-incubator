@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,9 +28,9 @@ public class CustomerRepositoryIntegrationTest {
         Customer customer = createTestCustomer("john", null, null, null);
         entityManager.persistAndFlush(customer);
 
-        Optional<Customer> found = customerRepository.findByUsername(customer.getUsername());
+        Optional<List<Customer>> found = customerRepository.findByUsername(customer.getUsername());
         assertThat(found).isPresent();
-        assertThat(found.get().getUsername()).isEqualTo(customer.getUsername());
+        assertThat(found.get().get(0).getUsername()).isEqualTo(customer.getUsername());
     }
 
     @Test
@@ -37,9 +38,9 @@ public class CustomerRepositoryIntegrationTest {
         Customer customer = createTestCustomer("john", null, null, "123456789");
         entityManager.persistAndFlush(customer);
 
-        Optional<Customer> found = customerRepository.findByPassportNumber(customer.getPassportNumber());
+        Optional<List<Customer>> found = customerRepository.findByPassportNumber(customer.getPassportNumber());
         assertThat(found).isPresent();
-        assertThat(found.get().getPassportNumber()).isEqualTo(customer.getPassportNumber());
+        assertThat(found.get().get(0).getPassportNumber()).isEqualTo(customer.getPassportNumber());
     }
 
     @Test
@@ -47,10 +48,10 @@ public class CustomerRepositoryIntegrationTest {
         Customer customer = createTestCustomer("john", "John", "Doe", "123456789");
         entityManager.persistAndFlush(customer);
 
-        Optional<Customer> found = customerRepository.findByFirstNameAndLastName(customer.getFirstName(), customer.getLastName());
+        Optional<List<Customer>> found = customerRepository.findByFirstNameAndLastName(customer.getFirstName(), customer.getLastName());
         assertThat(found).isPresent();
-        assertThat(found.get().getFirstName()).isEqualTo(customer.getFirstName());
-        assertThat(found.get().getLastName()).isEqualTo(customer.getLastName());
+        assertThat(found.get().get(0).getFirstName()).isEqualTo(customer.getFirstName());
+        assertThat(found.get().get(0).getLastName()).isEqualTo(customer.getLastName());
     }
 
     private Customer createTestCustomer(String username, String firstName, String lastName, String passport) {
