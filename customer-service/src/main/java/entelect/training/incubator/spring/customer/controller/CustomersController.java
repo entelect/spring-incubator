@@ -69,7 +69,7 @@ public class CustomersController {
         List<Customer> customers = customersService.searchCustomers(searchRequest);
 
         if (customers != null && !customers.isEmpty()) {
-        	LOGGER.trace("Found customers");
+        	LOGGER.info("Found customers: {}", customers);
             return ResponseEntity.ok(customers);
         }
 
