@@ -66,13 +66,14 @@ public class CustomersController {
     public ResponseEntity<?> searchCustomers(@RequestBody CustomerSearchRequest searchRequest) {
         LOGGER.info("Processing customer search request for request {}", searchRequest);
 
-        List<Customer> customer = customersService.searchCustomers(searchRequest);
+        List<Customer> customers = customersService.searchCustomers(searchRequest);
 
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
+        if (customers != null && !customers.isEmpty()) {
+        	LOGGER.trace("Found customers");
+            return ResponseEntity.ok(customers);
         }
 
-        LOGGER.trace("Customer not found");
+        LOGGER.trace("Customers not found");
         return ResponseEntity.notFound().build();
     }
     
