@@ -90,4 +90,5 @@ public class FlightsController {
         LOGGER.trace("Flight specials: {}", discountedFlights);
         return discountedFlights;
     }
+    
 }
