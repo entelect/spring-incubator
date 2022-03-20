@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: booking-service
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8203
+  error:
+    include-message: always
