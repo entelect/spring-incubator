@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class FlightsSearchRequest {
+	
     private SearchType searchType;
 
     private Integer daysToDeparture;

@@ -71,6 +71,7 @@ public class FlightsService {
     }
 
     public List<Flight> searchFlights(FlightsSearchRequest searchRequest) {
+    	
         Map<SearchType, Supplier<List<Flight>>> searchStrategies = new HashMap<>();
 
         searchStrategies.put(SearchType.DAYS_TO_DEPARTURE_SEARCH, () -> flightRepository.findByDepartureTimeBetweenDates(
