@@ -36,7 +36,7 @@ public class CustomersService {
         return customerOptional.orElse(null);
     }
 
-    public Iterable<Customer> searchCustomers(CustomerSearchRequest searchRequest) {
+    public List<Customer> searchCustomers(CustomerSearchRequest searchRequest) {
         Map<SearchType, Supplier<Optional<List<Customer>>>> searchStrategies = new HashMap<>();
 
         searchStrategies.put(SearchType.NAME_SEARCH, () -> customerRepository.findByFirstNameAndLastName(searchRequest.getFirstName(), searchRequest.getLastName()));
