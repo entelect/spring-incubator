@@ -32,6 +32,7 @@
         <lombok.version>1.18.20</lombok.version>
         <spring-boot-starter-test.version>2.4.0</spring-boot-starter-test.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-hystrix.version>1.1.4.RELEASE</spring-hystrix.version>
         <jaxb.version>2.2.11</jaxb.version>
         <activation.version>1.1.1</activation.version>
         <hsqldb.version>2.4.0</hsqldb.version>

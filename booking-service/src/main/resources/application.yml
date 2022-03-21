@@ -14,3 +14,13 @@ server:
   port: 8203
   error:
     include-message: always
+    
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
