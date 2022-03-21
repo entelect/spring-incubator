@@ -44,19 +44,17 @@ public class BookingsController {
         LOGGER.info("Processing customer booking request for booking={}", booking);
 
         Customer customer = customerClient.getCustomerById(booking.getCustomerId());
-
-        if (customer != null) {
-            LOGGER.trace("Found customer={}", customer);
-        }
-        
         Flight flight = flightClient.getFlightById(booking.getFlightId());
 
-        if (flight != null) {
-            LOGGER.trace("Found flight={}", flight);
+        if (flight != null && customer != null) {
+        	booking.setReferenceNumber(flight.getFlightNumber());
+        	final Booking savedBooking = bookingsService.createBooking(booking);
+        	LOGGER.trace("Booking created");
+            return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
         }
 
-        LOGGER.trace("Booking created");
-        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+        LOGGER.trace("Booking not created");
+        return ResponseEntity.notFound().build();
     }
     
     @GetMapping("{id}")
