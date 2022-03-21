@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import entelect.training.incubator.spring.booking.client.CustomerClient;
+import entelect.training.incubator.spring.booking.client.FlightClient;
 import entelect.training.incubator.spring.booking.model.Booking;
 import entelect.training.incubator.spring.booking.model.BookingSearchRequest;
 import entelect.training.incubator.spring.booking.model.Customer;
+import entelect.training.incubator.spring.booking.model.Flight;
 import entelect.training.incubator.spring.booking.service.BookingsService;
 
 @RestController
@@ -28,10 +30,13 @@ public class BookingsController {
     private final BookingsService bookingsService;
     
     private final CustomerClient customerClient;
+    
+    private final FlightClient flightClient;
 
-    public BookingsController(BookingsService bookingsService, CustomerClient customerClient) {
+    public BookingsController(BookingsService bookingsService, CustomerClient customerClient, FlightClient flightClient) {
         this.bookingsService = bookingsService;
         this.customerClient = customerClient;
+        this.flightClient = flightClient;
     }
     
     @PostMapping
@@ -41,8 +46,13 @@ public class BookingsController {
         Customer customer = customerClient.getCustomerById(booking.getCustomerId());
 
         if (customer != null) {
-            LOGGER.trace("Found customer");
-            return new ResponseEntity<>(customer, HttpStatus.OK);
+            LOGGER.trace("Found customer={}", customer);
+        }
+        
+        Flight flight = flightClient.getFlightById(booking.getFlightId());
+
+        if (flight != null) {
+            LOGGER.trace("Found flight={}", flight);
         }
 
         LOGGER.trace("Booking created");
