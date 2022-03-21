@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import entelect.training.incubator.spring.booking.model.Customer;
 
-@FeignClient(value = "customer-client", url = "https://localhost:8201/")
+@FeignClient(value = "customer-client", url = "localhost:8201")
 public interface CustomerClient {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/customers/{customerId}", produces = "application/json")
-    Customer getCustomerById(@PathVariable("customerId") Long customerId);
+    public Customer getCustomerById(@PathVariable("customerId") Integer customerId);
 
 }

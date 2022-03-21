@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import entelect.training.incubator.spring.booking.client.CustomerClient;
 import entelect.training.incubator.spring.booking.model.Booking;
 import entelect.training.incubator.spring.booking.model.BookingSearchRequest;
+import entelect.training.incubator.spring.booking.model.Customer;
 import entelect.training.incubator.spring.booking.service.BookingsService;
 
 @RestController
@@ -24,9 +26,27 @@ public class BookingsController {
     private final Logger LOGGER = LoggerFactory.getLogger(BookingsController.class);
 
     private final BookingsService bookingsService;
+    
+    private final CustomerClient customerClient;
 
-    public BookingsController(BookingsService bookingsService) {
+    public BookingsController(BookingsService bookingsService, CustomerClient customerClient) {
         this.bookingsService = bookingsService;
+        this.customerClient = customerClient;
+    }
+    
+    @PostMapping
+    public ResponseEntity<?> createBooking(@RequestBody Booking booking) {
+        LOGGER.info("Processing customer booking request for booking={}", booking);
+
+        Customer customer = customerClient.getCustomerById(booking.getCustomerId());
+
+        if (customer != null) {
+            LOGGER.trace("Found customer");
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        }
+
+        LOGGER.trace("Booking created");
+        return new ResponseEntity<>(booking, HttpStatus.CREATED);
     }
     
     @GetMapping("{id}")

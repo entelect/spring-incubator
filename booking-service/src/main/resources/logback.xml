@@ -37,7 +37,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "entelect.training.incubator.spring.customer.controller" at TRACE level to console only -->
+    <!-- LOG "entelect.training.incubator.spring.booking.controller" at TRACE level to console only -->
     <logger name="entelect.training.incubator.spring.booking.controller" level="trace" additivity="false">
         <appender-ref ref="Console" />
     </logger>
