@@ -20,7 +20,7 @@
         <module>flight-service</module>
         <module>customer-service</module>
     	<module>booking-service</module>
-  </modules>
+  	</modules>
 
     <properties>
         <!-- Project configuration -->
@@ -31,6 +31,7 @@
         <springframework.version>5.3.3</springframework.version>
         <lombok.version>1.18.20</lombok.version>
         <spring-boot-starter-test.version>2.4.0</spring-boot-starter-test.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
         <jaxb.version>2.2.11</jaxb.version>
         <activation.version>1.1.1</activation.version>
         <hsqldb.version>2.4.0</hsqldb.version>
