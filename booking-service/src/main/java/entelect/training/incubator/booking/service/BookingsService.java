@@ -1,13 +1,12 @@
 package entelect.training.incubator.booking.service;
 
 import entelect.training.incubator.booking.model.Booking;
+import entelect.training.incubator.booking.model.BookingSearchRequest;
 import entelect.training.incubator.booking.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class BookingsService {
@@ -30,6 +29,22 @@ public class BookingsService {
         bookingIterable.forEach(result::add);
 
         return result;
+    }
+
+    public Booking getBooking(Integer id){
+        Optional<Booking> bookingOptional = bookingRepository.findById(id);
+        return bookingOptional.orElse(null);
+    }
+
+    public Booking searchBookings(BookingSearchRequest searchRequest) {
+        if (searchRequest.getCustomerId() == null && searchRequest.getReferenceNumber() != null){
+            return bookingRepository.findByReferenceNumber(searchRequest.getReferenceNumber()).get();
+        } else {
+            if (searchRequest.getReferenceNumber() == null && searchRequest.getCustomerId() != null) {
+                return bookingRepository.findByCustomerId(searchRequest.getCustomerId()).get();
+            }
+        }
+        return null;
     }
 
     private String generateReferenceCode() {

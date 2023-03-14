@@ -1,6 +1,7 @@
 package entelect.training.incubator.booking.controller;
 
 import entelect.training.incubator.booking.model.Booking;
+import entelect.training.incubator.booking.model.BookingSearchRequest;
 import entelect.training.incubator.booking.service.BookingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,19 @@ public class BookingsController {
         }
 
         LOGGER.info("No bookings could be found");
+        return ResponseEntity.notFound().build();
+    }
+    @PostMapping("/search")
+    public ResponseEntity<?> searchCustomers(@RequestBody BookingSearchRequest searchRequest) {
+        LOGGER.info("Processing booking search request for request {}", searchRequest);
+
+        Booking booking = bookingsService.searchBookings(searchRequest);
+
+        if (booking != null) {
+            return ResponseEntity.ok(booking);
+        }
+
+        LOGGER.trace("Booking not found");
         return ResponseEntity.notFound().build();
     }
 }
