@@ -1,5 +1,6 @@
 package entelect.training.incubator.booking.controller;
 
+import entelect.training.incubator.booking.logic.BookingFacade;
 import entelect.training.incubator.booking.model.Booking;
 import entelect.training.incubator.booking.model.BookingSearchRequest;
 import entelect.training.incubator.booking.service.BookingsService;
