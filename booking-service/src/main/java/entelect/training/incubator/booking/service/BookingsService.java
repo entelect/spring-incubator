@@ -36,7 +36,7 @@ public class BookingsService {
         return bookingOptional.orElse(null);
     }
 
-    public Booking searchBookings(BookingSearchRequest searchRequest) {
+    public List<Booking> searchBookings(BookingSearchRequest searchRequest) {
         if (searchRequest.getCustomerId() == null && searchRequest.getReferenceNumber() != null){
             return bookingRepository.findByReferenceNumber(searchRequest.getReferenceNumber()).get();
         } else {
