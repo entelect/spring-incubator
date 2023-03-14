@@ -1,4 +1,4 @@
-package entelect.training.incubator;
+package entelect.training.incubator.booking;
 
 public class Main {
     public static void main(String[] args) {
