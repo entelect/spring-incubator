@@ -4,6 +4,7 @@ package entelect.training.incubator.spring.booking.controller;
 import entelect.training.incubator.spring.booking.model.Booking;
 //import entelect.training.incubator.spring.booking.model.BookingSearchRequest;
 import entelect.training.incubator.spring.booking.service.BookingService;
+import entelect.training.incubator.spring.customer.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,21 @@ public class BookingController {
         }
 
         LOGGER.trace("No bookings found");
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable Integer id) {
+        LOGGER.info("Processing customer search request for customer id={}", id);
+        Booking booking = this.bookingService.getBookingById(id);
+
+        if (booking != null) {
+            LOGGER.trace("Found customer");
+            return new ResponseEntity<>(booking, HttpStatus.OK);
+        }
+
+        LOGGER.trace("Booking not found");
         return ResponseEntity.notFound().build();
     }
 

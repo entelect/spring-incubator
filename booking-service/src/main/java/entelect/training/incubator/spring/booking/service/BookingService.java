@@ -36,26 +36,11 @@ public class BookingService {
 
         return bookingRepository.save(booking);
     }
-//    public Booking makeBooking(Booking booking) {
-//        Optional<Customer> customer = customerRepository.findById(booking.getCustomerId());
-//        Optional<Flight> flight = flightRepository.findById(booking.getFlightId());
-//
-//        if(customer.isPresent()){
-//            if(flight.isPresent()){
-//                return bookingRepository.save(booking);
-//            }
-//            else {
-//                return null;
-//            }
-//        }
-//        else {
-//            return null;
-//        }
-//    }
-//    public Booking getBooking(Integer id) {
-//        Optional<Booking> bookingOptional = bookingRepository.findById(id);
-//        return bookingOptional.orElse(null);
-//    }
+
+    public Booking getBookingById(Integer id) {
+        Optional<Booking> bookingOptional = bookingRepository.findById(id);
+        return bookingOptional.orElse(null);
+    }
 
     public List<Booking> getBooking() {
         Iterable<Booking> bookingIterable = bookingRepository.findAll();
