@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://entelect.training/incubator/spring-loyalty-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://entelect.training/incubator/spring-loyalty-service" targetNamespace="http://entelect.training/incubator/spring-loyalty-service">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://entelect.training/incubator/spring-loyalty-service">
+
+    <xs:element name="captureRewardsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="passportNumber" type="xs:string"/>
+                <xs:element name="amount" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="captureRewardsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="balance" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rewardsBalanceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="passportNumber" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="rewardsBalanceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="balance" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="rewardsBalanceRequest">
+    <wsdl:part element="tns:rewardsBalanceRequest" name="rewardsBalanceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="captureRewardsResponse">
+    <wsdl:part element="tns:captureRewardsResponse" name="captureRewardsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rewardsBalanceResponse">
+    <wsdl:part element="tns:rewardsBalanceResponse" name="rewardsBalanceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="captureRewardsRequest">
+    <wsdl:part element="tns:captureRewardsRequest" name="captureRewardsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RewardsPort">
+    <wsdl:operation name="rewardsBalance">
+      <wsdl:input message="tns:rewardsBalanceRequest" name="rewardsBalanceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:rewardsBalanceResponse" name="rewardsBalanceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="captureRewards">
+      <wsdl:input message="tns:captureRewardsRequest" name="captureRewardsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:captureRewardsResponse" name="captureRewardsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RewardsPortSoap11" type="tns:RewardsPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="rewardsBalance">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="rewardsBalanceRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="rewardsBalanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="captureRewards">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="captureRewardsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="captureRewardsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RewardsPortService">
+    <wsdl:port binding="tns:RewardsPortSoap11" name="RewardsPortSoap11">
+      <soap:address location="http://localhost:8208/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
