@@ -39,6 +39,10 @@
         <activation.version>1.1.1</activation.version>
         <hsqldb.version>2.4.0</hsqldb.version>
         <h2.version>1.4.200</h2.version>
+
+        <!-- plugin versions -->
+        <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     </properties>
 
     <dependencies>
