@@ -43,6 +43,7 @@
         <!-- plugin versions -->
         <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+        <jaxws-rt.version>2.3.6</jaxws-rt.version>
     </properties>
 
     <dependencies>

@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>2.3.6</version>
+            <version>${jaxws-rt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
