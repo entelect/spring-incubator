@@ -38,9 +38,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable() // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.POST, "/customers/**").hasAnyRole("SYSTEM", "ADMIN")
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/customers/**").hasAnyRole("SYSTEM", "ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 .httpBasic();

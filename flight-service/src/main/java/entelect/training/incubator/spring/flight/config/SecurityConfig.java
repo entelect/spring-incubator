@@ -36,10 +36,11 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // ?? with the denyAll commented, what does this actually do?
         http.csrf().disable() // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/flights/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/flights/**").permitAll()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/flights/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/flights/**").permitAll()
 //                .anyRequest().denyAll()
                 .and()
                 .httpBasic();

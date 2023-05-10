@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.11</version>
+        <version>3.0.6</version>
         <relativePath/>
     </parent>
 
@@ -31,8 +31,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- plugin versions -->
-        <!-- updating to 3.1.0 probably needs work for jakarta.xml changes?! -->
-        <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
+        <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
+        <!-- override from sb parent to include a fix that makes -DallowMajorUpdates=false to work -->
         <versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
 
         <!-- added by open rewrite for jax-ws updates and not defined in parent -->
