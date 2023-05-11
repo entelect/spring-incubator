@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/customers/**").hasAnyRole("SYSTEM", "ADMIN")
-                .anyRequest().denyAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
         return http.build();
