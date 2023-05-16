@@ -9,7 +9,6 @@ import entelect.training.incubator.spring.customer.model.SearchType;
 import entelect.training.incubator.spring.customer.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -18,7 +17,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
@@ -32,13 +30,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = CustomerServiceApplication.class)
 @AutoConfigureMockMvc(addFilters = false)
 @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 @AutoConfigureTestDatabase
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CustomersRestControllerIntegrationTest {
+class CustomersRestControllerIntegrationTest {
 
     private static final String TEST_CUSTOMER_USERNAME = "john";
     private static final String TEST_CUSTOMER_FIRST_NAME = "John";
@@ -52,12 +49,12 @@ public class CustomersRestControllerIntegrationTest {
     private CustomerRepository repository;
 
     @AfterEach
-    public void resetDb() {
+    void resetDb() {
         repository.deleteAll();
     }
 
     @Test
-    public void whenValidInput_thenCreateCustomer() throws Exception {
+    void whenValidInput_thenCreateCustomer() throws Exception {
         Customer customer = new Customer();
         customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
 
@@ -68,7 +65,7 @@ public class CustomersRestControllerIntegrationTest {
     }
 
     @Test
-    public void givenCustomers_whenGetCustomerById_thenReturnCustomer() throws Exception {
+    void givenCustomers_whenGetCustomerById_thenReturnCustomer() throws Exception {
         createTestCustomer(1);
 
         mvc.perform(get("/customers/1").contentType(MediaType.APPLICATION_JSON))
@@ -78,7 +75,7 @@ public class CustomersRestControllerIntegrationTest {
     }
 
     @Test
-    public void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
+    void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
         CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
@@ -93,7 +90,7 @@ public class CustomersRestControllerIntegrationTest {
     }
 
     @Test
-    public void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
+    void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
         CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
@@ -108,7 +105,7 @@ public class CustomersRestControllerIntegrationTest {
     }
 
     @Test
-    public void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
+    void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
         createTestCustomer();
 
         CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();

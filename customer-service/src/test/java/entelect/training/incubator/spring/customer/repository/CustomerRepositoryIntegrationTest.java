@@ -2,19 +2,16 @@ package entelect.training.incubator.spring.customer.repository;
 
 import entelect.training.incubator.spring.customer.model.Customer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class CustomerRepositoryIntegrationTest {
+class CustomerRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -23,7 +20,7 @@ public class CustomerRepositoryIntegrationTest {
     private CustomerRepository customerRepository;
 
     @Test
-    public void whenFindByUsername_thenReturnCustomer() {
+    void whenFindByUsername_thenReturnCustomer() {
         Customer customer = createTestCustomer("john", null, null, null);
         entityManager.persistAndFlush(customer);
 
@@ -33,7 +30,7 @@ public class CustomerRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenFindByPassportNumber_thenReturnCustomer() {
+    void whenFindByPassportNumber_thenReturnCustomer() {
         Customer customer = createTestCustomer("john", null, null, "123456789");
         entityManager.persistAndFlush(customer);
 
@@ -43,7 +40,7 @@ public class CustomerRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenFindByFirstNameAndLastName_thenReturnCustomer() {
+    void whenFindByFirstNameAndLastName_thenReturnCustomer() {
         Customer customer = createTestCustomer("john", "John", "Doe", "123456789");
         entityManager.persistAndFlush(customer);
 
