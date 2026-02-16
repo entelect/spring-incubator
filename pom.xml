@@ -33,7 +33,7 @@
         <!-- plugin versions -->
         <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
         <!-- override from sb parent to include a fix that makes -DallowMajorUpdates=false to work -->
-        <versions-maven-plugin.version>2.15.0</versions-maven-plugin.version>
+        <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
 
         <!-- added by open rewrite for jax-ws updates and not defined in parent -->
         <jaxws-rt.version>2.3.6</jaxws-rt.version>
@@ -77,7 +77,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.2.5</version>
+                                    <version>3.9.11</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
