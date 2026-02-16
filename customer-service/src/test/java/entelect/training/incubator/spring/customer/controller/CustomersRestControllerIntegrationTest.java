@@ -66,12 +66,12 @@ class CustomersRestControllerIntegrationTest {
 
     @Test
     void givenCustomers_whenGetCustomerById_thenReturnCustomer() throws Exception {
-        createTestCustomer(1);
+        Customer testCustomer = createTestCustomer();
 
-        mvc.perform(get("/customers/1").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/customers/"+testCustomer.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)));
+                .andExpect(jsonPath("$.id", is(testCustomer.getId())));
     }
 
     @Test
@@ -121,18 +121,13 @@ class CustomersRestControllerIntegrationTest {
                 .andExpect(jsonPath("$.lastName", is(TEST_CUSTOMER_LAST_NAME)));
     }
 
-    private void createTestCustomer() {
-        createTestCustomer(null);
-    }
-
-    private void createTestCustomer(Integer id) {
+    private Customer createTestCustomer() {
         Customer customer = new Customer();
-        customer.setId(id);
         customer.setUsername(TEST_CUSTOMER_USERNAME);
         customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
         customer.setLastName(TEST_CUSTOMER_LAST_NAME);
         customer.setPassportNumber(TEST_CUSTOMER_PASSPORT_NUMBER);
-        repository.save(customer);
+        return repository.save(customer);
     }
 
     private static byte[] toJson(Object object) throws IOException {
