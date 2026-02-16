@@ -5,7 +5,14 @@
 # Entelect Spring Incubator
 The Entelect Spring incubator aims to familiarise developers with popular and useful Spring projects used in modern Java-based applications.
 
-Please refer to the official documentation for usage guidelines: https://entelectza.sharepoint.com/spring-incubator-2021
+Please refer to the official documentation for usage guidelines: https://holocrons.entelect.co.za/learn/incubators/java-spring-incubator/
+
+# Versions
+
+Things move quickly and this repository is bound to be out of date. If you notice this, please feel free to make use of 
+OpenRewrite to upgrade. As of now, this repo uses Spring Boot 3.5 and JDK 25. 
+([sdkman](https://sdkman.io/) is recommended. `sdk env install` should set up maven and jdk. And IntelliJ also makes use of .sdkmanrc)
+
 
 # Running the Service
 ## Databases
