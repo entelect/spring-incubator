@@ -24,7 +24,7 @@ jobs:
     - name: Set up JDK 20
       uses: actions/setup-java@v3
       with:
-        java-version: '21'
+        java-version: '25'
         distribution: 'corretto'
         cache: maven
     - name: Build with Maven

@@ -11,6 +11,6 @@ public class MoloCellSmsClient implements SmsClient {
     
     @Override
     public void sendSms(String phoneNumber, String message) {
-        System.out.println("Sending SMS, destination='{}', '{}'".formatted(phoneNumber, message));
+        IO.println("Sending SMS, destination='{}', '{}'".formatted(phoneNumber, message));
     }
 }
