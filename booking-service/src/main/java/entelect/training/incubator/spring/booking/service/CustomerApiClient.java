@@ -1,5 +1,6 @@
 package entelect.training.incubator.spring.booking.service;
 
+import entelect.training.incubator.spring.booking.model.CustomerResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -32,5 +33,12 @@ public class CustomerApiClient {
             }
             throw ex; // other errors to bubble up eg service is down, 500 etc
         }
+    }
+
+    public CustomerResponse getCustomer(Integer customerId) {
+        return customerRestClient.get()
+                .uri("/customers/{id}", customerId)
+                .retrieve()
+                .body(CustomerResponse.class);
     }
 }

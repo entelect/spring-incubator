@@ -1,5 +1,6 @@
 package entelect.training.incubator.spring.booking.service;
 
+import entelect.training.incubator.spring.booking.model.FlightResponse;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -31,5 +32,12 @@ public class FlightApiClient {
             }
             throw ex; // other errors to bubble up eg service is down, 500 etc
         }
+    }
+
+    public FlightResponse getFlight(Integer flightId) {
+        return flightRestClient.get()
+                .uri("/flights/{id}", flightId)
+                .retrieve()
+                .body(FlightResponse.class);
     }
 }
