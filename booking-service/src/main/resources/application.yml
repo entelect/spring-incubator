@@ -19,3 +19,5 @@ services:
     base-url: http://localhost:8201
   flight:
     base-url: http://localhost:8202
+  loyalty:
+    base-url: http://localhost:8208/ws
