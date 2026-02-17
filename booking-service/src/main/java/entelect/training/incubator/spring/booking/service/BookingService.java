@@ -2,12 +2,15 @@ package entelect.training.incubator.spring.booking.service;
 
 import entelect.training.incubator.spring.booking.model.Booking;
 import entelect.training.incubator.spring.booking.model.BookingSearchRequest;
+import entelect.training.incubator.spring.booking.model.CustomerResponse;
+import entelect.training.incubator.spring.booking.model.FlightResponse;
 import entelect.training.incubator.spring.booking.model.SearchType;
 import entelect.training.incubator.spring.booking.repository.BookingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.function.Supplier;
@@ -30,12 +33,14 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final CustomerApiClient customerApiClient;
     private final FlightApiClient flightApiClient;
+    private final LoyaltyApiClient loyaltyApiClient;
 
     public BookingService(BookingRepository bookingRepository, CustomerApiClient customerApiClient,
-                          FlightApiClient flightApiClient) {
+                          FlightApiClient flightApiClient, LoyaltyApiClient loyaltyApiClient) {
         this.bookingRepository = bookingRepository;
         this.customerApiClient = customerApiClient;
         this.flightApiClient = flightApiClient;
+        this.loyaltyApiClient = loyaltyApiClient;
     }
 
     public Booking createBooking(Booking booking) {
@@ -61,6 +66,19 @@ public class BookingService {
 
         generateAndSetBookingReference(booking);
         Booking savedBooking = bookingRepository.save(booking);
+
+        try {
+            CustomerResponse customer = customerApiClient.getCustomer(booking.getCustomerId());
+            FlightResponse flight = flightApiClient.getFlight(booking.getFlightId());
+
+            BigDecimal rewardAmount = BigDecimal.valueOf(flight.getSeatCost());
+            loyaltyApiClient.captureRewards(customer.getPassportNumber(), rewardAmount);
+
+            LOGGER.info("Loyalty rewards captured for booking {}", savedBooking.getReferenceNumber());
+        } catch (Exception e) {
+            LOGGER.error("Failed to capture loyalty rewards for booking {}: {}",
+                    savedBooking.getReferenceNumber(), e.getMessage(), e);
+        }
 
         return savedBooking;
     }
