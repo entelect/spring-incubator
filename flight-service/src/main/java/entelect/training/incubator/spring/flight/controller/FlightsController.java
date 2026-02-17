@@ -30,7 +30,7 @@ public class FlightsController {
 
     @PostMapping
     public ResponseEntity<?> createFlight(@RequestBody Flight flight) {
-        LOGGER.info("Processing flight creation request for flight={}", flight);
+        LOGGER.info("Processing flight creation request for flight={id}", flight);
 
         final Flight savedFlight = flightsService.createFlight(flight);
 

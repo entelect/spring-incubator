@@ -3,6 +3,7 @@ package entelect.training.incubator.spring.flight.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -36,13 +37,14 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/flights/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/flights/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+        http
+                .csrf(csrf -> csrf.disable()) // !!! Disclaimer: NEVER DISABLE CSRF IN PRODUCTION !!!
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, "/flights/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/flights/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
